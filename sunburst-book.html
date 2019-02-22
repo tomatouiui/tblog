@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+       <title>尾巴读书记录</title>
+   </head>
+   <body style="height: 100%; margin: 0">
+       <div id="container" style="height: 100%"></div>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=TFcG9QjtRudct8QUpWY30ID3GmAiTMlG&__ec_v__=20190126"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+       <script type="text/javascript">
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+ var colors = ['#FFAE57', '#FF7853', '#EA5151', '#CC3F57', '#9A2555'];
+var bgColor = '#2E2733';
+
+var itemStyle = {
+    star5: {
+        color: colors[0]
+    },
+    star4: {
+        color: colors[1]
+    },
+    star3: {
+        color: colors[2]
+    },
+    star2: {
+        color: colors[3]
+    }
+};
+
+var data = [{
+    name: '虚构',
+    itemStyle: {
+        normal: {
+            color: colors[1]
+        }
+    },
+    children: [{
+        name: '小说',
+        children: [{
+            name: '5☆',
+            children: [{
+                name: 'S.'
+            }, {
+                name: '替身'
+            }, {
+                name: '放学后'
+            }, {
+                name: '白夜行'
+            }, {
+                name: '刺杀骑士团长'
+            }, {
+                name: '1Q84'
+            }, {
+                name: '洗钱'
+            }]
+        }, {
+            name: '4☆',
+            children: [{
+                name: '梦侦探'
+            }, {
+                name: '嫌疑人X的献身'
+            }, {
+                name: '童年的终结'
+            }, {
+                name: '菜刀温暖'
+            }]
+        }]
+    }, {
+        name: '其他',
+        children: [{
+            name: '5☆',
+            children: [{
+                name: '克苏鲁神话合集'
+            }]
+        }]
+    }]
+}, {
+    name: '非虚构',
+    itemStyle: {
+        color: colors[2]
+    },
+    children: [{
+        name: '艺术',
+        children: [{
+            name: '5☆',
+            children: [{
+                name: '胆小别看花'
+            }, {
+                name: '命运之画'
+            }]
+        }, {
+            name: '4☆',
+            children: [{
+                name: '小顾聊绘画'
+            }, {
+                name: '小顾聊神话'
+            }, {
+                name: '小顾聊绘画·文艺复兴'
+            }]
+        }]
+    }, {
+        name: '历史',
+        children: [{
+            name: '5☆',
+            children: [{
+                name: '與中國打交道'
+            }, {
+                name: '明朝那些事儿',
+            }]
+        }, {
+            name: '4☆',
+            children: [{
+                name: '半小时漫画中国史'
+            }, {
+                name: '半小时漫画世界史'
+            }, {
+                name: '萌 日本史'
+            }]
+        }]
+    }, {
+        name: '心理',
+        children: [{
+            name: '5☆',
+            children: [{
+                name: '孩子：挑战'
+            }, {
+                name: '怪癖心理学'
+            }]
+        }, {
+            name: '4☆',
+            children: [{
+                name: '成为弗洛伊德'
+            }, {
+                name: '社交天性'
+            }]
+        }]
+    }, {
+        name: '生活',
+        children: [{
+            name: '5☆',
+            children: [{
+                name: '遇见怦然心动的小书店'
+            }, {
+                name: '手把手教你制作小盆栽'
+            }, {
+                name: '极简主义'
+            }]
+        }, {
+            name: '4☆',
+            children: [{
+                name: '知日日本禅'
+            }, {
+                name: '食帖：便当灵感集'
+            }]
+        }]
+    }, {
+        name: '绘本',
+        children: [{
+            name: '5☆',
+            children: [{
+                name: '窝在墙角好安心'
+            }, {
+                name: '就喜欢你看不惯我又干不掉我的样子'
+            }, {
+                name: '长歌行'
+            }, {
+                name: '我可以被拥抱吗？'
+            }, {
+                name: '踮脚张望'
+            }]
+        }, {
+            name: '4☆',
+            children: [{
+                name: '不一样的卡梅拉'
+            }, {
+                name: '一个人上东京'
+            }, {
+                name: '一个人旅行'
+            }, {
+                name: '一个人的美食之旅'
+            }]
+        }, {
+            name: '3☆',
+            children: [{
+                name: '两个人一只猫'
+            }]
+        }]
+    }, {
+        name: '哲学',
+        children: [{
+            name: '5☆',
+            children: [{
+                name: '本书书名无法描述本书内容'
+            }]
+        }, {
+            name: '4☆',
+            children: [{
+                name: '哲学是做出来的'
+            }]
+        }]
+    }, {
+        name: '科学',
+        children: [{
+            name: '5☆',
+            children: [{
+                name: '量子物理史話 : 上帝擲骰子嗎? '
+            }]
+        }]
+    }, {
+        name: '中医',
+        children: [{
+            name: '5☆',
+            children: [{
+                name: '阴阳一调百病消'
+            }]
+        }, {
+            name: '4☆',
+            children: [{
+                name: '家中有本草，健康无烦恼'
+            }, {
+                name: '漫画中医'
+            }, {
+                name: '求医不如求己'
+            }, {
+                name: '这才是中医'
+            }, {
+                name: '神医这样看病 : 罗博士讲古代的名医'
+            },]
+        }]
+    }]
+}];
+
+for (var j = 0; j < data.length; ++j) {
+    var level1 = data[j].children;
+    for (var i = 0; i < level1.length; ++i) {
+        var block = level1[i].children;
+        var bookScore = [];
+        var bookScoreId;
+        for (var star = 0; star < block.length; ++star) {
+            var style = (function (name) {
+                switch (name) {
+                    case '5☆':
+                        bookScoreId = 0;
+                        return itemStyle.star5;
+                    case '4☆':
+                        bookScoreId = 1;
+                        return itemStyle.star4;
+                    case '3☆':
+                        bookScoreId = 2;
+                        return itemStyle.star3;
+                    case '2☆':
+                        bookScoreId = 3;
+                        return itemStyle.star2;
+                }
+            })(block[star].name);
+
+            block[star].label = {
+                color: style.color,
+                downplay: {
+                    opacity: 0.5
+                }
+            };
+
+            if (block[star].children) {
+                style = {
+                    opacity: 1,
+                    color: style.color
+                };
+                block[star].children.forEach(function (book) {
+                    book.value = 1;
+                    book.itemStyle = style;
+
+                    book.label = {
+                        color: style.color
+                    };
+
+                    var value = 1;
+                    if (bookScoreId === 0 || bookScoreId === 3) {
+                        value = 5;
+                    }
+
+                    if (bookScore[bookScoreId]) {
+                        bookScore[bookScoreId].value += value;
+                    }
+                    else {
+                        bookScore[bookScoreId] = {
+                            color: colors[bookScoreId],
+                            value: value
+                        };
+                    }
+                });
+            }
+        }
+
+        level1[i].itemStyle = {
+            color: data[j].itemStyle.color
+        };
+    }
+}
+
+option = {
+    backgroundColor: bgColor,
+    color: colors,
+    series: [{
+        type: 'sunburst',
+        center: ['50%', '48%'],
+        data: data,
+        sort: function (a, b) {
+            if (a.depth === 1) {
+                return b.getValue() - a.getValue();
+            }
+            else {
+                return a.dataIndex - b.dataIndex;
+            }
+        },
+        label: {
+            rotate: 'radial',
+            color: bgColor
+        },
+        itemStyle: {
+            borderColor: bgColor,
+            borderWidth: 2
+        },
+        levels: [{}, {
+            r0: 0,
+            r: 40,
+            label: {
+                rotate: 0
+            }
+        }, {
+            r0: 40,
+            r: 105
+        }, {
+            r0: 115,
+            r: 140,
+            itemStyle: {
+                shadowBlur: 2,
+                shadowColor: colors[2],
+                color: 'transparent'
+            },
+            label: {
+                rotate: 'tangential',
+                fontSize: 10,
+                color: colors[0]
+            }
+        }, {
+            r0: 140,
+            r: 145,
+            itemStyle: {
+                shadowBlur: 80,
+                shadowColor: colors[0]
+            },
+            label: {
+                position: 'outside',
+                textShadowBlur: 5,
+                textShadowColor: '#333',
+            },
+            downplay: {
+                label: {
+                    opacity: 0.5
+                }
+            }
+        }]
+    }]
+};
+;
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+       </script>
+   </body>
+</html>
